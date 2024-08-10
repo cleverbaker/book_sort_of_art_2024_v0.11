@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Box with Mouse Control</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .box {
+            position: relative;
+            width: 74px; /* 7.4 inches scaled down */
+            height: 90px; /* 9 inches scaled down */
+            transform-style: preserve-3d;
+            transform: rotateX(-30deg) rotateY(-45deg);
+        }
+
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 128, 255, 0.7);
+            border: 1px solid #000;
+        }
+
+        .front {
+            transform: translateZ(7px); /* 0.7 inches scaled down */,
+            background:url("9781585421466.jpg") no-repeat 100% 100%;
+        }
+
+        .back {
+            transform: rotateY(180deg) translateZ(7px);
+        }
+
+        .left {
+            width: 7px; /* 0.7 inches scaled down */
+            height: 90px; /* 9 inches scaled down */
+            transform: rotateY(-90deg) translateZ(4px); /* Half of the length */
+        }
+
+        .right {
+            width: 7px; /* 0.7 inches scaled down */
+            height: 90px; /* 9 inches scaled down */
+            transform: rotateY(90deg) translateZ(70px); /* Half of the length */
+        }
+
+        .top {
+            width: 74px; /* 7.4 inches scaled down */
+            height: 7px; /* 0.7 inches scaled down */
+            transform: rotateX(90deg) translateZ(2px); /* Half of the height */
+        }
+
+        .bottom {
+            width: 74px; /* 7.4 inches scaled down */
+            height: 7px; /* 0.7 inches scaled down */
+            transform: rotateX(-90deg) translateZ(85px); /* Half of the height */
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="face front"></div>
+    <div class="face back"></div>
+    <div class="face left"></div>
+    <div class="face right"></div>
+    <div class="face top"></div>
+    <div class="face bottom"></div>
+</div>
+
+<script>
+    const box = document.querySelector('.box');
+    let isDragging = false;
+    let startX, startY, currentX = -45, currentY = -30;
+
+    const onMouseDown = (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+    };
+
+    const onMouseMove = (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        currentX += dx * 0.1;
+        currentY -= dy * 0.1;
+        box.style.transform = `rotateX(${currentY}deg) rotateY(${currentX}deg)`;
+        startX = e.clientX;
+        startY = e.clientY;
+    };
+
+    const onMouseUp = () => {
+        isDragging = false;
+    };
+
+    document.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+</script>
+</body>
+</html>

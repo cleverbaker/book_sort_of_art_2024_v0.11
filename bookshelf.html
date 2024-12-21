@@ -2,6 +2,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Book Sort of Art</title>
+
+    <style>
+        .book-details-container {
+            position: fixed;
+            width: 12em;
+            height: 18em;
+            margin: 0 auto;
+            right: 7em;
+            top: 14em;
+            border: 1px solid #000;
+        }
+
+        .book-details {
+            display: none;
+            background-color: #f0f0f0;
+            border: 1px solid #000;
+            padding: 1em;
+            margin: 1em 0;
+        }
+
+        /* when hover #book-000, show .book-details-container #book-details-000 */
+
+        #book-000:hover ~ .book-details-container #book-details-000 {
+            display: block;
+        }
+
+        #book-001:hover ~ .book-details-container #book-details-001,
+        #book-002:hover ~ .book-details-container #book-details-002,
+        #book-003:hover ~ .book-details-container #book-details-003,
+        #book-004:hover ~ .book-details-container #book-details-004,
+        #book-005:hover ~ .book-details-container #book-details-005,
+        #book-006:hover ~ .book-details-container #book-details-006,
+        #book-007:hover ~ .book-details-container #book-details-007,
+        #book-008:hover ~ .book-details-container #book-details-008,
+        #book-009:hover ~ .book-details-container #book-details-009,
+        #book-0010:hover ~ .book-details-container #book-details-010,
+        #book-0011:hover ~ .book-details-container #book-details-011 {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
@@ -81,6 +121,57 @@
          style="background-color: #BCCBD3; width: 12px; height: 52px; display: inline-block"></div>
     <div id="book-0011" class="book"
          style="background-color: #E5E5E5; width: 12px; height: 52px; display: inline-block"></div>
+
+    <div class="book-details-container">
+        <div id="book-details-000" class="book-details book-details-000">
+            <h3>Book 000</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-001" class="book-details">
+            <h3>Book 001</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-002" class="book-details">
+            <h3>Book 002</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-003" class="book-details">
+            <h3>Book 003</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-004" class="book-details">
+            <h3>Book 004</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-005" class="book-details">
+            <h3>Book 005</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-006" class="book-details">
+            <h3>Book 006</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-007" class="book-details">
+            <h3>Book 007</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-008" class="book-details">
+            <h3>Book 008</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-009" class="book-details">
+            <h3>Book 009</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-010" class="book-details">
+            <h3>Book 010</h3>
+            <p>Color: #C0272D</p>
+        </div>
+        <div id="book-details-011" class="book-details">
+            <h3>Book 011</h3>
+            <p>Color: #C0272D</p>
+        </div>
+    </div>
 </div>
 </div>
 </body>
@@ -4463,10 +4554,27 @@
             return;
         }
         const bookDiv = document.createElement("div");
+        const bookDivDetails = document.createElement("div");
+        const bookDivDetailsTitle = document.createElement("div");
+        const bookDivDetailsAuthor = document.createElement("div");
+        const bookDivDetailsNumber = document.createElement("p");
 
         // generate random background color in hex format
         const randomColor = Math.floor(Math.random()*16777215).toString(16);
         bookDiv.setAttribute("id", `book-${index + 1}`);
+        bookDiv.setAttribute("id", `book-details-${index + 1}`);
+
+        bookDivDetailsTitle.innerHTML = `Title: ${book.title}`;
+        bookDivDetailsTitle.className = "book-title";
+        bookDivDetailsAuthor.innerHTML = `Author: ${book.author}`;
+        bookDivDetailsAuthor.className = "book-author";
+        bookDivDetailsNumber.innerHTML = `Book ${index + 1}`;
+        bookDivDetailsNumber.className = "book-number";
+
+        bookDivDetails.appendChild(bookDivDetailsTitle);
+        bookDivDetails.appendChild(bookDivDetailsAuthor);
+        bookDivDetails.appendChild(bookDivDetailsNumber);
+
 
         // if book.dimensions_structured.width.value or book.dimensions_structured.height.value is not defined, continue to next iteration
         if (!book.dimensions_structured.width.value || !book.dimensions_structured.height.value) {

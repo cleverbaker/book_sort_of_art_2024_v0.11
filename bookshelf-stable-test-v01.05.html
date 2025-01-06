@@ -206,6 +206,9 @@
     const shelf_2_max_height = 9;
     const shelf_3_max_height = 13;
 
+    const shelf_max_width = 320;
+    let current_shelf_width = 0;
+
     const booksData = [
         {
             "dimensions_structured": {
@@ -4627,12 +4630,25 @@
         // set bookDiv width and height attributes based on dimensions_structured width and height values
 
         if (onlyVertical && book.dimensions_structured.width.value < book.dimensions_structured.height.value) {
-            bookDiv.style.width = `${book.dimensions_structured.width.value * 10 }px`;
+
+            bookDiv.width = Math.round(book.dimensions_structured.width.value * 10);
+
+            bookDiv.style.width = `${bookDiv.width}px`;
             bookDiv.style.height = `${book.dimensions_structured.height.value * 10 }px`;
+
+            current_shelf_width += bookDiv.width;
         } else {
-            bookDiv.style.width = `${book.dimensions_structured.height.value * 10 }px`;
+
+            bookDiv.width = Math.round(book.dimensions_structured.height.value * 10);
+
+            bookDiv.style.width = `${bookDiv.width}px`;
             bookDiv.style.height = `${book.dimensions_structured.width.value * 10 }px`;
+
+            current_shelf_width += bookDiv.width;
         }
+
+        console.log("current_shelf_width", current_shelf_width);
+
 
         bookDiv.style.display = "inline-block";
         bookDiv.style.margin = "0 1px";
